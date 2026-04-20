@@ -1,4 +1,4 @@
-# Setup inicial - Pokédex v0.1.0
+# Setup inicial - Pokédex v0.1.1
 
 ## Requisitos
 - Node.js 20+
