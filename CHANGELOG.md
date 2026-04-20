@@ -5,6 +5,13 @@ Todos los cambios notables de este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [0.2.0] - 2026-04-20
+
+### Añadido
+- Selector de visualización en la home para alternar entre modo tarjeta y modo lista.
+- Modo lista horizontal para mostrar cada Pokémon en filas.
+- Documentación de la funcionalidad en `/docs/view-modes.md`.
+
 ## [0.1.1] - 2026-04-20
 
 ### Corregido

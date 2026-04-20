@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import PokemonCard from '../components/PokemonCard';
 import pokeApi from '../lib/axios';
 
 export default function Home({ pokemons }) {
+  const [viewMode, setViewMode] = useState('card');
+
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-10">
       <section className="mx-auto max-w-6xl">
@@ -10,9 +13,42 @@ export default function Home({ pokemons }) {
           <p className="mt-2 text-slate-600">Primeros 151 Pokémon de Kanto</p>
         </header>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="mb-6 flex items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setViewMode('card')}
+            className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              viewMode === 'card'
+                ? 'bg-slate-800 text-white shadow-sm'
+                : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50'
+            }`}
+            aria-pressed={viewMode === 'card'}
+          >
+            Modo tarjeta
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewMode('list')}
+            className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+              viewMode === 'list'
+                ? 'bg-slate-800 text-white shadow-sm'
+                : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50'
+            }`}
+            aria-pressed={viewMode === 'list'}
+          >
+            Modo lista
+          </button>
+        </div>
+
+        <div
+          className={
+            viewMode === 'card'
+              ? 'grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+              : 'flex flex-col gap-3'
+          }
+        >
           {pokemons.map((pokemon) => (
-            <PokemonCard key={pokemon.id} pokemon={pokemon} />
+            <PokemonCard key={pokemon.id} pokemon={pokemon} viewMode={viewMode} />
           ))}
         </div>
       </section>
