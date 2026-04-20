@@ -5,6 +5,13 @@ Todos los cambios notables de este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [0.3.0] - 2026-04-20
+
+### Añadido
+- Buscador por nombre en la home con filtrado en tiempo real de los primeros 151 Pokémon.
+- Mensaje de estado cuando no hay coincidencias de búsqueda.
+- Documentación de la funcionalidad en `/docs/search-by-name.md`.
+
 ## [0.2.0] - 2026-04-20
 
 ### Añadido

@@ -1,9 +1,20 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import PokemonCard from '../components/PokemonCard';
 import pokeApi from '../lib/axios';
 
 export default function Home({ pokemons }) {
   const [viewMode, setViewMode] = useState('card');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredPokemons = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+
+    if (!normalizedSearch) {
+      return pokemons;
+    }
+
+    return pokemons.filter((pokemon) => pokemon.name.includes(normalizedSearch));
+  }, [pokemons, searchTerm]);
 
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-10">
@@ -12,6 +23,20 @@ export default function Home({ pokemons }) {
           <h1 className="text-4xl font-extrabold text-slate-800">Pokédex</h1>
           <p className="mt-2 text-slate-600">Primeros 151 Pokémon de Kanto</p>
         </header>
+
+        <div className="mx-auto mb-6 max-w-md">
+          <label htmlFor="pokemon-search" className="mb-2 block text-sm font-semibold text-slate-700">
+            Buscar por nombre
+          </label>
+          <input
+            id="pokemon-search"
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value.toLowerCase())}
+            placeholder="Ej: pikachu"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-800 shadow-sm outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+          />
+        </div>
 
         <div className="mb-6 flex items-center justify-center gap-2">
           <button
@@ -40,6 +65,12 @@ export default function Home({ pokemons }) {
           </button>
         </div>
 
+        {filteredPokemons.length === 0 && (
+          <p className="mb-6 text-center text-sm font-medium text-slate-600">
+            No se encontraron Pokémon para "{searchTerm.trim()}".
+          </p>
+        )}
+
         <div
           className={
             viewMode === 'card'
@@ -47,7 +78,7 @@ export default function Home({ pokemons }) {
               : 'flex flex-col gap-3'
           }
         >
-          {pokemons.map((pokemon) => (
+          {filteredPokemons.map((pokemon) => (
             <PokemonCard key={pokemon.id} pokemon={pokemon} viewMode={viewMode} />
           ))}
         </div>
